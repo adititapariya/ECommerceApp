@@ -7,7 +7,7 @@ import Header from "../components/Header";
 
 const Home = () => {
   return (
-    <View style={defaultStyle}>
+    <View style={{...defaultStyle, flex:0}}>
       <Header/>
       <View>
         <Text style={{fontSize:25}}>Our</Text>
