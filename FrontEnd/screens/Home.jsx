@@ -6,8 +6,7 @@ import {defaultStyle,colors} from '../styles/styles'
 import Header from "../components/Header";
 import {Avatar} from "react-native-paper";
 import { Button } from 'react-native-paper';
-
-const Home = () => {
+import SearchModal from '../components/SearchModal';
 
 const categories=[{category:"Nice", _id:"sdnjskad"},
 {category:"Nice2", _id:"ksjdbhsb"},
@@ -18,13 +17,31 @@ const categories=[{category:"Nice", _id:"sdnjskad"},
 {category:"Nice7", _id:"jjsbdjkkbjs"}
 ];
 
-const[category,setCategory]=useState("")
+const products=[];
+
+const Home = () => {
+
+const[category,setCategory]=useState("");
+const [activeSearch, setActiveSearch]=useState(false);
+const [searchQuery,setSearchQuery]=useState("");
+
 const categoryButtonHandler=(id)=>{
   setCategory(id);
 };
   console.log(category);
   return (
-    // <View style={{...defaultStyle, flex:0}}>
+<>
+    {
+      activeSearch && (
+        <SearchModal 
+          searchQuery={searchQuery} 
+          setSearchQuery={setSearchQuery}
+          setActiveSearch={setActiveSearch} 
+          products={products}
+        />
+      )
+    }
+
     <View style={defaultStyle}>
       <Header/>
 
@@ -42,7 +59,7 @@ const categoryButtonHandler=(id)=>{
         </View>
         {/*Search Bar*/}
         <View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => setActiveSearch((prev) => !prev)}>
             <Avatar.Icon 
             icon={"magnify"}
             size={50} 
@@ -86,7 +103,8 @@ const categoryButtonHandler=(id)=>{
   
       
     </View>
-  )
-}
+    </>
+  );
+};
 
 export default Home;
